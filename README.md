@@ -58,6 +58,7 @@ d. Backup file syslog setiap jam.
 e. dan buatkan juga bash script untuk dekripsinya.
 
 <h2>Jawaban :</h2>
+
 > cat $input | tr [${low:26}${upper:26}] [${low:$key:26}${upper:$key:26}] > "$syslogupdate"
 - Disini terdapat proses perubahan huruf yang nilai urutannya disesuaikan dengan jam dan dijumlah dengan nilai urutan huruf yang akan dirubah
 - Dan hasilnya akan disimpan ke file yang nama filenya disesuaikan dengan waktu saat itu
