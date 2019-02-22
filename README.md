@@ -125,9 +125,17 @@ upper=$upper$upper
 syslogupdate=$(date +"%H:%M %d-%m-%Y")
 cat $input | tr [${low:26}${upper:26}] [${low:$key:26}${upper:$key:26}] > "$syslogupdate"
 ```
+```
+low=abcdefghijklmnopqrstuvwxyz
+low=$low$low
+upper=ABCDEFGHIJKLMNOPQRSTUVWXYZ
+upper=$upper$upper
+```
+- Ini string huruf untuk menampung setiap karakter dan mengubahnya ke karakter yang baru
 
 > cat $input | tr [${low:26}${upper:26}] [${low:$key:26}${upper:$key:26}] > "$syslogupdate"
 - Disini terdapat proses perubahan huruf yang nilai urutannya disesuaikan dengan jam dan dijumlah dengan nilai urutan huruf yang akan dirubah
+
 - Dan hasilnya akan disimpan ke file yang nama filenya disesuaikan dengan waktu saat itu
 > syslogupdate=$(date +"%H:%M %d-%m-%Y")
 - Dan berikan crontab setiap jam
