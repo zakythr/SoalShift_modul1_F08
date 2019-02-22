@@ -8,7 +8,6 @@ for f in $File
 do
 	chmod 777 $f
 	echo "ganti permission"
-	#echo jadiin hexa
 	base64 -d $f | xxd -r > $tujuan/$i.jpg
 	let i=$i+1
 done
