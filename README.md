@@ -1,6 +1,7 @@
 # SoalShift_modul1_F08
 Semoga berkah dan berhasil mengerjakan soal praktikum Sistem Operasi sampai selesai
 
+
 1. Anda diminta tolong oleh teman anda untuk mengembalikan filenya yang telah dienkripsi oleh seseorang menggunakan bash script, file yang dimaksud adalah nature.zip. Karena terlalu mudah kalian memberikan syarat akan membuka seluruh file tersebut jika pukul 14:14 pada tanggal 14 Februari atau hari tersebut adalah hari jumat pada bulan Februari. Hint: Base64, Hexdump
 
 <h2>Jawaban:</h2>
@@ -28,6 +29,7 @@ c. Tentukan tiga product yang memberikan penjualan(quantity) terbanyak berdasark
 - Kita memiliki 2 kondisi yaitu pada tahun 2012 dan negara paling terbanyak quantitynya yaitu *United States", string array field (kolom) ke-empat *product line* memiliki nilai field ke 10 *quantity*, lalu urutkan dari yang terbesar ke yang terkecil, lalu ambil tiga teratas
 > awk -F ',' '{ if($7 == '2012' && $1 == "United States" && ($4 == "Personal Accessories" || $4 == "Camping Equipment" || $4 == "Outdoor Protection")) i[$6]+=$10} END {for (x in i){print i[x]" "x}}' ~/Downloads/WA_Sales_Products_2012-14.csv | sort -rn | head -3
 - Kita memiliki 5 kondisi yaitu pada tahun 2012, negara paling terbanyak quantitynya yaitu *United States", dan 3 *Product Line* terbanyak, string array field (kolom) ke-enam *product* memiliki nilai field ke 10 *quantity*, lalu urutkan dari yang terbesar ke yang terkecil, lalu ambil tiga teratas
+
 3. Buatlah sebuah script bash yang dapat menghasilkan password secara acak sebanyak 12 karakter yang terdapat huruf besar, huruf kecil, dan angka. Password acak tersebut disimpan pada file berekstensi .txt dengan ketentuan pemberian nama sebagai berikut:
 
 a. Jika tidak ditemukan file password1.txt maka password acak tersebut disimpan pada file bernama password1.txt
