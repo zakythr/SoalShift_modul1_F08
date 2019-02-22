@@ -61,12 +61,23 @@ e. dan buatkan juga bash script untuk dekripsinya.
 
 <h2>Jawaban :</h2>
 
+<h4>Proses Encrypt</h4>
+
 > cat $input | tr [${low:26}${upper:26}] [${low:$key:26}${upper:$key:26}] > "$syslogupdate"
 - Disini terdapat proses perubahan huruf yang nilai urutannya disesuaikan dengan jam dan dijumlah dengan nilai urutan huruf yang akan dirubah
 - Dan hasilnya akan disimpan ke file yang nama filenya disesuaikan dengan waktu saat itu
 > syslogupdate=$(date +"%H:%M %d-%m-%Y")
 - Dan berikan crontab setiap jam
 > */60 * * * * zaky /home/zaky/nomer4.sh
+
+<h4>Proses Decrypt</h4>
+
+> awk '{print}' "$filename" | tr [${low:$key:26}${upper:$key:26}] [${low:0:26}${upper:0:26}] > "$syslogupdate"
+- Disini terdapat proses perubahan huruf di file encrypt, yang akan dirubah ke dalam bentuk normal sesuai dengan data yang berada di /var/log/syslog
+
+- Untuk menjalankan decrypt ini maka kita harus menggunakan syntax di bawah ini
+> bash *nama_file* "*waktu tanggal*"
+- Contohnya : bash *decrypt_nomer4.sh* "14:50 22-02-2019"
 
 5. Buatlah sebuah script bash untuk menyimpan record dalam syslog yang memenuhi kriteria berikut:
 
