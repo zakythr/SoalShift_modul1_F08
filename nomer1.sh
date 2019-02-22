@@ -12,6 +12,3 @@ do
 	base64 -d $f | xxd -r > $tujuan/$i.jpg
 	let i=$i+1
 done
-#zip naturejpg.zip $target/*
-#rm -r $target
-#rm -r /home/zaky/Documents/nature
