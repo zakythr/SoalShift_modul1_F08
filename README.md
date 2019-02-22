@@ -24,8 +24,8 @@ done
 
 - Pertama kita lakukan decrypt pada folder nature.zip
 - Lalu folder tersebut diunzip dengan *unzip*
-- Mendecrypt file di dalam folder tersebut dengan *base64 -d*
-- Mereverse file dengan hexdump *xxd -r*
+- Mendecrypt file di dalam folder tersebut dengan *base64 -d* (mendecode image menjadi hexa)
+- Mereverse file dengan hexdump *xxd -r* (menerjemahkan hexa menjadi image)
 - Terakhir kita membuat crontabnya untuk mengatur waktu sesuai soal
 
 2. Anda merupakan pegawai magang pada sebuah perusahaan retail, dan anda diminta untuk memberikan laporan berdasarkan file WA_Sales_Products_2012-14.csv. Laporan yang diminta berupa:
