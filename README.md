@@ -6,6 +6,22 @@ Semoga berkah dan berhasil mengerjakan soal praktikum Sistem Operasi sampai sele
 
 <h2>Jawaban:</h2>
 
+```
+#!/bin/bash
+unzip /home/zaky/Downloads/nature.zip
+File=/home/zaky/Downloads/nature/*
+mkdir /home/zaky/Documents/naturejpg
+tujuan=/home/zaky/Documents/naturejpg
+i=0
+for f in $File
+do
+	chmod 777 $f
+	echo "ubah permission"
+	base64 -d $f | xxd -r > $tujuan/$i.jpg
+	let i=$i+1
+done
+```
+
 - Pertama kita lakukan decrypt pada folder nature.zip
 - Lalu folder tersebut diunzip dengan *unzip*
 - Mendecrypt file di dalam folder tersebut dengan *base64 -d*
@@ -21,6 +37,20 @@ b. Tentukan tiga product line yang memberikan penjualan(quantity) terbanyak pada
 c. Tentukan tiga product yang memberikan penjualan(quantity) terbanyak berdasarkan tiga product line yang didapatkan pada soal poin
 
 <h2>Jawaban :</h2>
+
+```
+#!/bin/bash
+
+awk -F ',' '{ if($7 == '2012') i[$1]+=$10} END {for (x in i){print i[x]" "x}}' ~/Downloads/WA_Sales_Products_2012-14.csv | sort -rn | head -1
+
+printf "\n"
+
+awk -F ',' '{ if($7 == "2012" && $1 == "United States") i[$4]+=$10} END {for (x in i){print i[x]" "x}}' ~/Downloads/WA_Sales_Products_2012-14.csv | sort -rn | head -3
+
+printf "\n"
+
+awk -F ',' '{ if($7 == '2012' && $1 == "United States" && ($4 == "Personal Accessories" || $4 == "Camping Equipment" || $4 == "Outdoor Protection")) i[$6]+=$10} END {for (x in i){print i[x]" "x}}' ~/Downloads/WA_Sales_Products_2012-14.csv | sort -rn | head -3
+```
 
 - Langkah pertama kita harus mengerjakan poin a dulu, karena setelah kita tahu hasilnya maka kita mudah untuk mencari hasil poin b dan c
 > awk -F ',' '{ if($7 == '2012') i[$1]+=$10} END {for (x in i){print i[x]" "x}}' ~/Downloads/WA_Sales_Products_2012-14.csv | sort -rn | head -1
@@ -41,6 +71,23 @@ c. Urutan nama file tidak boleh ada yang terlewatkan meski filenya dihapus.
 d. Password yang dihasilkan tidak boleh sama.
 
 <h2>Jawaban :</h2>
+
+```
+#!/bin/bash
+
+loop=1
+order=1
+
+while [ $loop -ne 0 ]
+do
+if [[ -f password$order.txt ]]
+then order=$((order + 1))
+else
+cat /dev/urandom | tr -dc '0-9a-zA-Z0-9' | fold -w 12 | head -n 1 > password$order.txt
+loop=0
+fi
+done
+```
 
 - Pertama membuat pass randomnya yang akan dimasukin di file password$order di directory /home
 > cat /dev/urandom | tr -dc '0-9a-zA-Z0-9' |fold -w 12 |head -n 1 > password$order.txt
@@ -63,6 +110,22 @@ e. dan buatkan juga bash script untuk dekripsinya.
 
 <h4>Proses Encrypt</h4>
 
+```
+#!/bin/bash
+
+key=$(date +"%H")
+
+input="/var/log/syslog"
+
+low=abcdefghijklmnopqrstuvwxyz
+low=$low$low
+upper=ABCDEFGHIJKLMNOPQRSTUVWXYZ
+upper=$upper$upper
+
+syslogupdate=$(date +"%H:%M %d-%m-%Y")
+cat $input | tr [${low:26}${upper:26}] [${low:$key:26}${upper:$key:26}] > "$syslogupdate"
+```
+
 > cat $input | tr [${low:26}${upper:26}] [${low:$key:26}${upper:$key:26}] > "$syslogupdate"
 - Disini terdapat proses perubahan huruf yang nilai urutannya disesuaikan dengan jam dan dijumlah dengan nilai urutan huruf yang akan dirubah
 - Dan hasilnya akan disimpan ke file yang nama filenya disesuaikan dengan waktu saat itu
@@ -71,6 +134,21 @@ e. dan buatkan juga bash script untuk dekripsinya.
 > */60 * * * * zaky /home/zaky/nomer4.sh
 
 <h4>Proses Decrypt</h4>
+
+```
+#!/bin/bash
+
+low=abcdefghijklmnopqrstuvwxyz
+low=$low$low
+upper=ABCDEFGHIJKLMNOPQRSTUVWXYZ
+upper=$upper$upper
+
+filename=$1
+key=${filename:0:2}
+syslogupdate="${filename}_decrypt"
+
+awk '{print}' "$filename" | tr [${low:$key:26}${upper:$key:26}] [${low:0:26}${upper:0:26}] > "$syslogupdate"
+```
 
 > awk '{print}' "$filename" | tr [${low:$key:26}${upper:$key:26}] [${low:0:26}${upper:0:26}] > "$syslogupdate"
 - Disini terdapat proses perubahan huruf di file encrypt, yang akan dirubah ke dalam bentuk normal sesuai dengan data yang berada di /var/log/syslog
@@ -90,6 +168,12 @@ c. Masukkan record tadi ke dalam file logs yang berada pada direktori /home/[use
 d. Jalankan script tadi setiap 6 menit dari menit ke 2 hingga 30, contoh 13:02, 13:08, 13:14, dst.
 
 <h2>Jawaban :</h2>
+
+```
+#!/bin/bash
+
+awk '(/CRON/ || /cron/),!/sudo/' /var/log/syslog | awk 'NF < 13' >> /home/zaky/nomer5
+```
 
 > awk '(/CRON/ || /cron/),!/sudo/' /var/log/syslog | awk 'NF < 13' >> /home/zaky/nomer5
 - Keterangan : membuat kondisi memilih kata *cron* huruf kecil atau huruf besar semua yang tidak mengandung *sudo*. Lalu di pipe dan memilih field (kolom) yang kurang dari 13, dan hasilnya akan ditaruh di file nomer5 yang berada di home
